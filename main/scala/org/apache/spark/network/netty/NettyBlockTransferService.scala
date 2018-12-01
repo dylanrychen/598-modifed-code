@@ -110,9 +110,10 @@ private[spark] class NettyBlockTransferService(
       tempFileManager: DownloadFileManager): Unit = {
     val localhost: InetAddress = InetAddress.getLocalHost
     val localIpAddress: String = localhost.getHostAddress
-    val blocknames = blockIds.mkString(", ")
-    var log: String = ("FetchBlock:" + localIpAddress + "*blockerIDs:" + blocknames + "*From:" + host + ":port"
-    + port + "*ExecutorID:" + execId)
+    val blocknames = blockIds.mkString(",")
+    var log: String = (localIpAddress + "*" + host + ":" + port + "*" + "FetchBlocks-BlockID:" + blocknames + "-ExecutorID:" + execId)
+//     var log: String = ("FetchBlock:" + localIpAddress + "*blockerIDs:" + blocknames + "*From:" + host + ":port"
+//     + port + "*ExecutorID:" + execId)
     log = log.replace(" ", "%20")
     log = log.replace("[", "\\[")
     log = log.replace("]", "\\]")
@@ -161,8 +162,9 @@ private[spark] class NettyBlockTransferService(
 
     val localhost: InetAddress = InetAddress.getLocalHost
     val localIpAddress: String = localhost.getHostAddress
-    var log: String = ("Upload block:" + localIpAddress + "*blockerIDs:" + BlockId + "*to:" + hostname + ":port"
-    + port + "*ExecutorID:" + execId)
+    var log: String = (localIpAddress + "*" + hostname + ":" + port + "*" + "FetchBlocks-BlockID:" + BlockId + "-ExecutorID:" + execId)
+//     var log: String = ("Upload block:" + localIpAddress + "*blockerIDs:" + BlockId + "*to:" + hostname + ":port"
+//     + port + "*ExecutorID:" + execId)
     log = log.replace(" ", "%20")
     log = log.replace("[", "\\[")
     log = log.replace("]", "\\]")

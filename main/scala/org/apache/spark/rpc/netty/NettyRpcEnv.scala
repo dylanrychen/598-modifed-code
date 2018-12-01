@@ -530,8 +530,9 @@ private[netty] class NettyRpcEndpointRef(
   override def name: String = endpointAddress.name
 
   override def ask[T: ClassTag](message: Any, timeout: RpcTimeout): Future[T] = {
-    var log: String = ("ClientAsk:" + this.address + "*name:" + this.name + "*Sender:" + nettyEnv.address +
-    "*Message:" +message)
+    var log: String = (nettyEnv.address + "*" + this.address + ":" + this.name + "*" + "RPCAsk" + message)
+//     var log: String = ("ClientAsk:" + this.address + "*name:" + this.name + "*Sender:" + nettyEnv.address +
+//     "*Message:" +message)
     log = log.replace(" ", "%20")
     log = log.replace("[", "\\[")
     log = log.replace("]", "\\]")
@@ -544,14 +545,15 @@ private[netty] class NettyRpcEndpointRef(
 
   override def send(message: Any): Unit = {
     require(message != null, "Message is null")
-    
-    var log: String = ("Receiver:" + this.address + "*name:" + this.name +
-    "*Message:" +message)    
+    var log: String = (nettyEnv.address + "*" + this.address + ":" + this.name + "*" + "RPCSend" + message)
+//     var log: String = ("Receiver:" + this.address + "*name:" + this.name +
+//     "*Message:" +message)    
     log = log.replace(" ", "%20")
     log = log.replace("[", "\\[")
     log = log.replace("]", "\\]")
     var buffer = new StringBuffer()
     var sequence = Seq("curl", "10.194.71.202:80/?log="+log)
+    // var curl: String = "curl 10.193.205.231:80/?log=" + log
     // val arg2 = " >/dev/zero 2>/dev/zero"
     // logWarning(s"curr is " + curl)
     sequence run ProcessLogger(buffer append _)
